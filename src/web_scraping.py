@@ -1,3 +1,5 @@
+""" Web Scraping de um site de pontos de doação de agasalhos """
+
 import json
 import time
 from selenium import webdriver
@@ -7,12 +9,14 @@ from bs4 import BeautifulSoup
 
 
 def create_driver():
+    """ Cria um webdriver a partir do arquivo definido na pasta resources """
     option = Options()
     option.headless = True
     return webdriver.Chrome(executable_path='resources/chromedriver', options=option)
 
 
 def get_html_content(url, web_driver):
+    """ Extrai o HTML da página especificada no parâmetro url """
     web_driver.get(url)
     time.sleep(5)
     elements = web_driver.find_elements(by=by.By.XPATH, value="//div[@class='pontocoleta_bloco']")
@@ -22,6 +26,7 @@ def get_html_content(url, web_driver):
 
 
 def get_donation_points(html):
+    """ Extrai do html os pontos de doação """
     soup = [BeautifulSoup(div, 'html.parser') for div in html]
     donation_points = []
     for tag in soup:
@@ -31,6 +36,7 @@ def get_donation_points(html):
 
 
 def transform_data(data):
+    """ Transforma os dados em um dicionário próprio """
     address = {}
     data_transformed = []
     for value in data:
@@ -45,6 +51,7 @@ def transform_data(data):
 
 
 def save_json_file(data):
+    """ Salva os dados em um arquivo json """
     with open('../enderecos.json', 'w', encoding='utf-8') as json_dump:
         json_file = json.dumps(data, indent=4, ensure_ascii=False)
         json_dump.write(json_file)
