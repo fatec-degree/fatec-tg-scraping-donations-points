@@ -9,7 +9,7 @@ import time
 def create_driver():
     option = Options()
     option.headless = True
-    return webdriver.Chrome(executable_path='./chromedriver', options=option)
+    return webdriver.Chrome(executable_path='resources/chromedriver', options=option)
 
 
 def get_html_content(url, driver):
@@ -45,7 +45,7 @@ def transform_data(data):
 
 
 def save_json_file(data):
-    with open('enderecos.json', 'w') as jp:
+    with open('../enderecos.json', 'w') as jp:
         js = json.dumps(data, indent=4, ensure_ascii=False)
         jp.write(js)
 
