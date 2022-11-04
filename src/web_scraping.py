@@ -37,16 +37,16 @@ def get_donation_points(html):
 
 def transform_data(data):
     """ Transforma os dados em um dicionário próprio """
-    address = {}
     data_transformed = []
     for value in data:
-        address['ponto'] = str(value[0][0])
-        address['cidade'] = str(value[1][0])
-        address['local'] = str(value[2][0])
-        address['endereco'] = str(value[3][0])
-        address['horario'] = str(value[4][0])
-        address['praca'] = str(value[6][0])
-        data_transformed.append(address)
+        data_transformed.append({
+            'ponto': str(value[0][0]),
+            'cidade': str(value[1][0]),
+            'local': str(value[2][0]),
+            'endereco': str(value[3][0]),
+            'horario': str(value[4][0]),
+            'praca': str(value[6][0])
+        })
     return data_transformed
 
 
