@@ -16,8 +16,8 @@ def create_driver():
 
 
 def get_html_content(url):
-    driver = create_driver()
     """ Extrai o HTML da página especificada no parâmetro url """
+    driver = create_driver()
     driver.get(url)
     time.sleep(5)
     elements = driver.find_elements(by=by.By.XPATH, value="//div[@class='pontocoleta_bloco']")
