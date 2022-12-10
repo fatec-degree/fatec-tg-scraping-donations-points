@@ -2,10 +2,10 @@
 
 import json
 import time
+from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common import by
-from bs4 import BeautifulSoup
 
 
 def create_driver():
@@ -15,13 +15,14 @@ def create_driver():
     return webdriver.Chrome(executable_path='resources/chromedriver', options=option)
 
 
-def get_html_content(url, web_driver):
+def get_html_content(url):
+    driver = create_driver()
     """ Extrai o HTML da página especificada no parâmetro url """
-    web_driver.get(url)
+    driver.get(url)
     time.sleep(5)
-    elements = web_driver.find_elements(by=by.By.XPATH, value="//div[@class='pontocoleta_bloco']")
+    elements = driver.find_elements(by=by.By.XPATH, value="//div[@class='pontocoleta_bloco']")
     html = [e.get_attribute('outerHTML') for e in elements]
-    web_driver.quit()
+    driver.quit()
     return html
 
 
@@ -35,32 +36,39 @@ def get_donation_points(html):
     return donation_points
 
 
-def transform_data(data):
+def remove_title(value: str):
+    """ Remove o título dos dados """
+    try:
+        return value.split(':', 1)[1].strip()
+    except IndexError:
+        return value.strip()
+
+
+def transform_data(values):
     """ Transforma os dados em um dicionário próprio """
     data_transformed = []
-    for value in data:
+    for value in values:
         data_transformed.append({
-            'ponto': str(value[0][0]),
-            'cidade': str(value[1][0]),
-            'local': str(value[2][0]),
-            'endereco': str(value[3][0]),
-            'horario': str(value[4][0]),
-            'praca': str(value[6][0])
+            'ponto': remove_title(str(value[0][0])),
+            'cidade': remove_title(str(value[1][0])),
+            'local': remove_title(str(value[2][0])),
+            'endereco': remove_title(str(value[3][0])),
+            'horario': remove_title(str(value[4][0])),
+            'praca': remove_title(str(value[6][0]))
         })
     return data_transformed
 
 
-def save_json_file(data):
+def save_json_file(file):
     """ Salva os dados em um arquivo json """
     with open('../enderecos.json', 'w', encoding='utf-8') as json_dump:
-        json_file = json.dumps(data, indent=4, ensure_ascii=False)
+        json_file = json.dumps(file, indent=4, ensure_ascii=False)
         json_dump.write(json_file)
 
 
 if __name__ == '__main__':
     URL_DONATIONS = 'https://www.exercitodoacoes.org.br/doacoes/pontos-de-coleta/'
-    driver = create_driver()
-    html_content = get_html_content(URL_DONATIONS, driver)
-    adresses = get_donation_points(html_content)
-    result = transform_data(adresses)
-    save_json_file(result)
+    data = get_html_content(URL_DONATIONS)
+    data = get_donation_points(data)
+    data = transform_data(data)
+    save_json_file(data)
