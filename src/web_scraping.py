@@ -20,7 +20,7 @@ def get_html_content(url):
     driver = create_driver()
     driver.get(url)
     time.sleep(5)
-    elements = driver.find_elements(by=by.By.XPATH, value="//div[@class='pontocoleta_bloco']")
+    elements = driver.find_elements(by=by.By.XPATH, value="//div[@id='searchTextResults']//div[@class='pontocoleta_bloco']")
     html = [e.get_attribute('outerHTML') for e in elements]
     driver.quit()
     return html
