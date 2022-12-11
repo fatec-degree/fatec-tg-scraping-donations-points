@@ -16,7 +16,10 @@ class DonationsDAO:
         self.__database = MySQLDatabase(HOST, USER, PASSWORD, DATABASE)
 
     def save_donations_points(self, points: list):
-        """ Percorre a lista de pontos de doação e os converte para a forma esperado pelo método save_all """
+        """
+            Percorre a lista de pontos de doação e os
+            converte para a forma esperada pelo método save_all
+        """
         values = [(p.point, p.city, p.place, p.address, p.opening_hours, p.square) for p in points]
         self.__database.save_all(TABLE, COLUMNS, values)
 
