@@ -1,9 +1,5 @@
 CREATE TABLE tb_donations_points (
     id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     point VARCHAR(255) NOT NULL,
-    city VARCHAR(255) NOT NULL,
-    place VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    opening_hours VARCHAR(255) NOT NULL,
-    square VARCHAR(255) NOT NULL
+    address VARCHAR(255) NOT NULL
 );

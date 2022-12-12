@@ -9,15 +9,9 @@ scraper = DonationScraper(url=URL_DONATIONS,
                           driver_path='resources/chromedriver')
 points = scraper.get_donation_points()
 donations_points = [DonationPoint(point=p.get('point'),
-                                 city=p.get('city'),
-                                 place=p.get('place'),
-                                 address=p.get('address'),
-                                 opening_hours=p.get('opening_hours'),
-                                 square=p.get('square')) for p in points]
-scraper.save_json_file()
+                                  address=p.get('address')) for p in points]
 scraper.quit()
 donations_dao = DonationsDAO()
 donations_dao.save_donations_points(donations_points)
-print(donations_dao.select_all())
 donations_dao.close()
 print('SUCCESS')

@@ -7,7 +7,7 @@ USER = os.environ.get('DB_USER', 'root')
 PASSWORD = os.environ.get('DB_PASSWORD', '')
 DATABASE = os.environ.get('DB_NAME', 'db_donations')
 TABLE = 'tb_donations_points'
-COLUMNS = '(point, city, place, address, opening_hours, square)'
+COLUMNS = '(point, address)'
 
 class DonationsDAO:
     """ Classe reponsável pelos métodos CRUD dos pontos de doação """
@@ -20,7 +20,7 @@ class DonationsDAO:
             Percorre a lista de pontos de doação e os
             converte para a forma esperada pelo método save_all
         """
-        values = [(p.point, p.city, p.place, p.address, p.opening_hours, p.square) for p in points]
+        values = [(p.point, p.address) for p in points]
         self.__database.save_all(TABLE, COLUMNS, values)
 
     def select_all(self):

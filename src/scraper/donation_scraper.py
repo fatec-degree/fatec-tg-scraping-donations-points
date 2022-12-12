@@ -11,7 +11,7 @@ from selenium.webdriver.common import by
 class DonationScraper:
     """ Classe que faz o processo de scraping do site de doações """
 
-    def __init__(self, url, xpath, driver_path) -> None:
+    def __init__(self, url, xpath, driver_path):
         self.__url = url
         self.__xpath = xpath
         self.__driver_path = driver_path
@@ -22,7 +22,6 @@ class DonationScraper:
         option = Options()
         option.headless = True
         return webdriver.Chrome(executable_path=self.__driver_path, options=option)
-
 
     def __get_html_content(self):
         """ Extrai o HTML da página especificada no parâmetro url """
@@ -40,17 +39,18 @@ class DonationScraper:
         except IndexError:
             return value.strip()
 
+    def __remove_garbage(self, value):
+        """ Remove partes inúteis da string """
+        value = value.replace('Ponto ', '')
+        return value
+
     def __transform_data(self, values):
         """ Transforma os dados em um dicionário próprio """
         data_transformed = []
         for value in values:
             data_transformed.append({
-                'point': self.__remove_title(value[0][0]),
-                'city': self.__remove_title(value[1][0]),
-                'place': self.__remove_title(value[2][0]),
-                'address': self.__remove_title(value[3][0]),
-                'opening_hours': self.__remove_title(value[4][0]),
-                'square': self.__remove_title(value[6][0])
+                'point': self.__remove_garbage(value[0][0]),
+                'address': self.__remove_title(value[3][0])
             })
         return data_transformed
 
@@ -71,6 +71,6 @@ class DonationScraper:
     def save_json_file(self):
         """ Salva os dados em um arquivo json """
         file = self.get_donation_points()
-        with open('enderecos.json', 'w', encoding='utf-8') as json_dump:
+        with open('addresses.json', 'w', encoding='utf-8') as json_dump:
             json_file = json.dumps(file, indent=4, ensure_ascii=False)
             json_dump.write(json_file)
