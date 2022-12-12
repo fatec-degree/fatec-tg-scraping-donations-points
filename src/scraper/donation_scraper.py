@@ -45,12 +45,12 @@ class DonationScraper:
         data_transformed = []
         for value in values:
             data_transformed.append({
-                'ponto': self.__remove_title(value[0][0]),
-                'cidade': self.__remove_title(value[1][0]),
-                'local': self.__remove_title(value[2][0]),
-                'endereco': self.__remove_title(value[3][0]),
-                'horario': self.__remove_title(value[4][0]),
-                'praca': self.__remove_title(value[6][0])
+                'point': self.__remove_title(value[0][0]),
+                'city': self.__remove_title(value[1][0]),
+                'place': self.__remove_title(value[2][0]),
+                'address': self.__remove_title(value[3][0]),
+                'opening_hours': self.__remove_title(value[4][0]),
+                'square': self.__remove_title(value[6][0])
             })
         return data_transformed
 
