@@ -13,7 +13,7 @@ class DonationsDAO:
     """ Classe reponsável pelos métodos CRUD dos pontos de doação """
 
     def __init__(self):
-        self.__database = MySQLDatabase(HOST, USER, PASSWORD, DATABASE)
+        self.__database = MySQLDatabase(HOST, USER, PASSWORD, DATABASE, TABLE)
 
     def save_donations_points(self, points: list):
         """
@@ -22,6 +22,10 @@ class DonationsDAO:
         """
         values = [(p.point, p.city, p.place, p.address, p.opening_hours, p.square) for p in points]
         self.__database.save_all(TABLE, COLUMNS, values)
+
+    def select_all(self):
+        """ Retorna uma lista com todos os dados da tabela """
+        return self.__database.select_all()
 
     def close(self):
         """ Encerra a conexão com o banco """

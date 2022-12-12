@@ -5,7 +5,8 @@ import mysql.connector
 class MySQLDatabase:
     """ Classe que faz a conexão com o banco e realiza operações CRUD """
 
-    def __init__(self, host, user, password, database):
+    def __init__(self, host, user, password, database, table):
+        self.__table = table
         self.__conn = self.__connect(host, user, password, database)
         self.__cursor = self.__conn.cursor()
 
@@ -33,12 +34,18 @@ class MySQLDatabase:
     def save_all(self, table, columns: str, values):
         """ Salva n registros no banco de dados """
         if self.__is_connected():
-            sql = "INSERT INTO " + table + " " + str(columns) + \
+            sql = "INSERT INTO " + self.__table + " " + str(columns) + \
                   " VALUES (" + self.__str_values(columns.count(',') + 1) + ")"
             self.__cursor.executemany(sql, values)
             self.__conn.commit()
-            self.__cursor.close()
+
+    def select_all(self):
+        """ Retorna todos os registro da tabela """
+        sql = "SELECT * FROM " + self.__table
+        self.__cursor.execute(sql)
+        return self.__cursor.fetchall()
 
     def close(self):
         """ Encerra a conexão com o banco """
+        self.__cursor.close()
         self.__conn.close()
