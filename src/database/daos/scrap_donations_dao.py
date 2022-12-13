@@ -6,10 +6,10 @@ HOST = os.environ.get('DB_HOST', 'localhost')
 USER = os.environ.get('DB_USER', 'root')
 PASSWORD = os.environ.get('DB_PASSWORD', '')
 DATABASE = os.environ.get('DB_NAME', 'db_donations')
-TABLE = 'tb_donations_points'
+TABLE = 'tb_scrap_donations_points'
 COLUMNS = '(point, address)'
 
-class DonationsDAO:
+class ScrapDonationsDAO:
     """ Classe reponsável pelos métodos CRUD dos pontos de doação """
 
     def __init__(self):

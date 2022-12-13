@@ -1,5 +1,5 @@
 """ Módulo principal do sistema """
-from database.daos.donations_dao import DonationsDAO
+from database.daos.scrap_donations_dao import ScrapDonationsDAO
 from model.donation_point import DonationPoint
 from scraper.donation_scraper import DonationScraper
 
@@ -11,7 +11,7 @@ points = scraper.get_donation_points()
 donations_points = [DonationPoint(point=p.get('point'),
                                   address=p.get('address')) for p in points]
 scraper.quit()
-donations_dao = DonationsDAO()
+donations_dao = ScrapDonationsDAO()
 donations_dao.save_donations_points(donations_points)
 donations_dao.close()
 print('SUCCESS')
