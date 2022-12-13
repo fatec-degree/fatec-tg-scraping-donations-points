@@ -1,0 +1,13 @@
+CREATE TABLE tb_addresses (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    cep VARCHAR(15) NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    district VARCHAR(255) NOT NULL,
+    street VARCHAR(255) NOT NULL,
+    number VARCHAR(50) NOT NULL,
+    lng DOUBLE NOT NULL,
+    lat DOUBLE NOT NULL,
+    creation_date DATETIME NOT NULL
+);
