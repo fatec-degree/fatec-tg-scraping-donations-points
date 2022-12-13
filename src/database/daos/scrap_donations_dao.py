@@ -1,19 +1,14 @@
-""" Módulo DAO para acesso aos pontos de doação """
-import os
 from ..mysql_database import MySQLDatabase
 
-HOST = os.environ.get('DB_HOST', 'localhost')
-USER = os.environ.get('DB_USER', 'root')
-PASSWORD = os.environ.get('DB_PASSWORD', '')
-DATABASE = os.environ.get('DB_NAME', 'db_donations')
 TABLE = 'tb_scrap_donations_points'
 COLUMNS = '(point, address)'
+
 
 class ScrapDonationsDAO:
     """ Classe reponsável pelos métodos CRUD dos pontos de doação """
 
     def __init__(self):
-        self.__database = MySQLDatabase(HOST, USER, PASSWORD, DATABASE, TABLE)
+        self.__database = MySQLDatabase(TABLE)
 
     def save_donations_points(self, points: list):
         """
@@ -21,7 +16,7 @@ class ScrapDonationsDAO:
             converte para a forma esperada pelo método save_all
         """
         values = [(p.point, p.address) for p in points]
-        self.__database.save_all(TABLE, COLUMNS, values)
+        self.__database.save_all(COLUMNS, values)
 
     def select_all(self):
         """ Retorna uma lista com todos os dados da tabela """
