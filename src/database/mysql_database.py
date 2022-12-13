@@ -1,13 +1,18 @@
-""" Módulo de conexão com banco de dados MySQL """
+import os
 import mysql.connector
+
+HOST = os.environ.get('DB_HOST', 'localhost')
+USER = os.environ.get('DB_USER', 'root')
+PASSWORD = os.environ.get('DB_PASSWORD', '')
+DATABASE = os.environ.get('DB_NAME', 'db_donations')
 
 
 class MySQLDatabase:
     """ Classe que faz a conexão com o banco e realiza operações CRUD """
 
-    def __init__(self, host, user, password, database, table):
+    def __init__(self, table):
         self.__table = table
-        self.__conn = self.__connect(host, user, password, database)
+        self.__conn = self.__connect(HOST, USER, PASSWORD, DATABASE)
         self.__cursor = self.__conn.cursor()
 
     def __connect(self, host, user, password, database):
@@ -23,7 +28,7 @@ class MySQLDatabase:
         return self.__conn.is_connected()
 
     def __str_values(self, size):
-        """ Cria uma string com tamanho n para fazer o insert no banco """
+        """ Cria uma 'string' com tamanho n para fazer o insert no banco """
         values = ''
         while size > 1:
             values += '%s, '
@@ -31,8 +36,8 @@ class MySQLDatabase:
         values += '%s'
         return values
 
-    def save_all(self, table, columns: str, values):
-        """ Salva n registros no banco de dados """
+    def save_all(self, columns: str, values):
+        """ Salva 'n' registros no banco de dados """
         if self.__is_connected():
             sql = "INSERT INTO " + self.__table + " " + str(columns) + \
                   " VALUES (" + self.__str_values(columns.count(',') + 1) + ")"
@@ -40,7 +45,7 @@ class MySQLDatabase:
             self.__conn.commit()
 
     def select_all(self):
-        """ Retorna todos os registro da tabela """
+        """ Retorna todos os registros da tabela """
         sql = "SELECT * FROM " + self.__table
         self.__cursor.execute(sql)
         return self.__cursor.fetchall()
