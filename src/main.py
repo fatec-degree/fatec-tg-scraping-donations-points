@@ -13,7 +13,8 @@ URL_DONATIONS = 'https://www.exercitodoacoes.org.br/doacoes/pontos-de-coleta/'
 
 # Scraping dos dados
 scraper = DonationScraper(url=URL_DONATIONS,
-                          xpath="//div[@id='searchTextResults']//div[@class='pontocoleta_bloco']",
+                          xpath="//div[@id='searchTextResults']//\
+                          div[@class='pontocoleta_bloco']",
                           driver_path='resources/chromedriver')
 points = scraper.get_donation_points()
 donations_points = [DonationPoint(point=p.get('point'),

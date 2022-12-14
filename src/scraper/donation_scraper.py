@@ -21,7 +21,8 @@ class DonationScraper:
         """ Cria um webdriver a partir do arquivo passado como parametro """
         option = Options()
         option.headless = True
-        return webdriver.Chrome(executable_path=self.__driver_path, options=option)
+        return webdriver.Chrome(executable_path=self.__driver_path,
+                                options=option)
 
     def __get_html_content(self):
         """ Extrai o HTML da página especificada no parâmetro url """

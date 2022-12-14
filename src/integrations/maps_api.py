@@ -1,9 +1,7 @@
-""" Módulo que faz a conexão com a API do Google """
 import googlemaps
 
 
 class MapsAPI:
-    """ Classe que encapsula a lógica para fazer requisições a API do google """
 
     def __init__(self, api_key):
         self.__api_key = api_key
@@ -20,7 +18,8 @@ class MapsAPI:
             'district': address_components[2].get('long_name'),
             'city': address_components[3].get('long_name'),
             'state': address_components[4].get('long_name'),
-            'cep': str(address_components[6].get('long_name')).replace('-', ''),
+            'cep': str(address_components[6].
+                       get('long_name')).replace('-', ''),
             'lat': geometry.get('location').get('lat'),
             'lng': geometry.get('location').get('lng')
         }

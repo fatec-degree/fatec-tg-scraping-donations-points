@@ -2,11 +2,11 @@ from datetime import datetime
 from ..mysql_database import MySQLDatabase
 
 TABLE = 'tb_addresses'
-COLUMNS = '(name, cep, state, city, district, street, number, lng, lat, creation_date)'
+COLUMNS = '(name, cep, state, city, district,' \
+          'street, number, lng, lat, creation_date)'
 
 
 class AddressesDAO:
-    """ Classe reponsável pelos métodos CRUD dos endereços dos pontos de doação """
 
     def __init__(self):
         self.__database = MySQLDatabase(TABLE)
@@ -24,7 +24,9 @@ class AddressesDAO:
         self.__database.save_all(COLUMNS, values)
 
     def delete_inconsistent_data(self):
-        """ Deleta do banco todos os dados que não seguem um determinado padrão """
+        """ Deleta do banco todos os dados que
+            não seguem um determinado padrão
+        """
         where = "LOWER(cep) REGEXP '[a-z]'"
         self.__database.delete(where)
 
