@@ -8,4 +8,4 @@ jobs:
     container: pedro6571/points-of-donations:latest
     steps:
       - name: Run Pylint
-        run: cd app/src && make lint
+        uses: docker://pedro6571/points-of-donations:latest
