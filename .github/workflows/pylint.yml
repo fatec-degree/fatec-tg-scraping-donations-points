@@ -19,7 +19,7 @@ jobs:
     - name: Make lint
       run: cd src && make lint
     
-  docker:
-    needs: lint
-    uses: ./.github/workflows/docker.yml
-    secrets: inherit
+#  docker:
+ #   needs: lint
+  #  uses: ./.github/workflows/docker.yml
+   # secrets: inherit
