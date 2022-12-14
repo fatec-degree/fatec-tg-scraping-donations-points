@@ -4,8 +4,22 @@ on: [push]
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
-    container: pedro6571/points-of-donations:latest
+    runs-on: ubuntu-latestv
     steps:
-      - name: Run Pylint
-        uses: docker://pedro6571/points-of-donations:latest
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.8.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.8.10
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pylint
+        pip install -r requirements.txt
+    - name: Make lint
+      run: cd src && make lint
+    
+  docker:
+    needs: lint
+    uses: ./.github/workflows/docker.yml
+    secrets: inherit
