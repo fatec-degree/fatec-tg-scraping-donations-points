@@ -23,6 +23,11 @@ class AddressesDAO:
                    datetime.now()) for a in addresses]
         self.__database.save_all(COLUMNS, values)
 
+    def delete_inconsistent_data(self):
+        """ Deleta do banco todos os dados que não seguem um determinado padrão """
+        where = "LOWER(cep) REGEXP '[a-z]'"
+        self.__database.delete(where)
+
     def close(self):
         """ Encerra a conexão com o banco """
         self.__database.close()

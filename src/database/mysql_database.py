@@ -50,6 +50,13 @@ class MySQLDatabase:
         self.__cursor.execute(sql)
         return self.__cursor.fetchall()
 
+    def delete(self, where):
+        """ Deleta dados que atendam a condição """
+        sql = "DELETE FROM " + self.__table
+        sql += " WHERE " + where
+        self.__cursor.execute(sql)
+        self.__conn.commit()
+
     def close(self):
         """ Encerra a conexão com o banco """
         self.__cursor.close()
