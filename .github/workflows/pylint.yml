@@ -5,8 +5,7 @@ on: [push]
 jobs:
   lint:
     runs-on: ubuntu-latest
-    container:
-      image: pedro6571/points-of-donations:latest
+    container: pedro6571/points-of-donations:latest
     steps:
       - name: Run Pylint
-        run: pwd
+        run: ls -la
