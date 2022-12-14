@@ -1,0 +1,2 @@
+lint:
+	nox -s lint
