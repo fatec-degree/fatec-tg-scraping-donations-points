@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   lint:
+    runs-on: ubuntu-latest
     container:
       image: pedro6571/points-of-donations:latest
     steps:
