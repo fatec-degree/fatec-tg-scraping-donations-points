@@ -17,9 +17,9 @@ scraper = DonationScraper(url=URL_DONATIONS,
                           div[@class='pontocoleta_bloco']",
                           driver_path='resources/chromedriver')
 points = scraper.get_donation_points()
+scraper.quit()
 donations_points = [DonationPoint(point=p.get('point'),
                                   address=p.get('address')) for p in points]
-scraper.quit()
 
 # Salva os dados do scraping no banco
 donations_dao = ScrapDonationsDAO()
