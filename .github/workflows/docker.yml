@@ -16,3 +16,11 @@ jobs:
       with:
         username: pedro6571
         password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3.2.0
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: pedro6571/points-of-donations:latest
