@@ -43,7 +43,7 @@ class DonationScraper:
     def __remove_garbage(self, value):
         """ Remove partes inúteis da string """
         value = value.replace('Ponto ', '')
-        return value
+        return value.strip()
 
     def __transform_data(self, values):
         """ Transforma os dados em um dicionário próprio """
