@@ -1,15 +1,17 @@
 """ Módulo principal do sistema """
 import os
 from database.daos.scrap_donations_dao import ScrapDonationsDAO
-from database.daos.addresses_dao import AddressesDAO
 from model.donation_point import DonationPoint
 from scraper.donation_scraper import DonationScraper
 from integrations.maps_api import MapsAPI
 from model.address import Address
-
+from integrations.donations_api import DonationsAPI
 
 API_KEY = os.environ.get('MAPS_API_KEY')
 URL_DONATIONS = 'https://www.exercitodoacoes.org.br/doacoes/pontos-de-coleta/'
+DONATIONS_URL_API = os.environ.get('ADDRESS_API_URL_LOCAL')
+if os.environ.get('ENVIRONMENT') == 'prd':
+    DONATIONS_URL_API = os.environ.get('ADDRESS_API_URL_PRD')
 
 # Scraping dos dados
 scraper = DonationScraper(url=URL_DONATIONS,
@@ -27,6 +29,7 @@ donations_dao.save_donations_points(donations_points)
 
 # Busca os dados do scraping do banco e faz requisições a API do Google Maps
 # para buscar o endereço completo e organizado
+# TODO - ir para o próximo passo direto, sem ter que consultar os dados no banco novamente
 scraping_donations_points = [(p[1], p[2]) for p in donations_dao.select_all()]
 maps = MapsAPI(API_KEY)
 complete_ads = []
@@ -55,11 +58,11 @@ for ad in address_models:
     if not ad.cep.isnumeric():
         address_models.remove(ad)
 
-# Salva os endereços completos no banco
-addresses_dao = AddressesDAO()
-addresses_dao.save_addresses(address_models)
+# Salva os endereços completos no banco através da API
+donations_api = DonationsAPI(DONATIONS_URL_API)
+for ad in address_models:
+    donations_api.save_address(ad)
 
 # Finaliza o programa
-addresses_dao.close()
 donations_dao.close()
 print('SUCCESS')
