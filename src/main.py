@@ -37,9 +37,9 @@ for s in scraping_donations_points:
         continue
 
 # Criar uma lista de objetos Address a partir dos endereços completos
-adress_models = []
+address_models = []
 for i in range(0, len(complete_ads)):
-    adress_models.append(Address(
+    address_models.append(Address(
         name=scraping_donations_points[i][0],
         cep=complete_ads[i].get('cep'),
         district=complete_ads[i].get('district'),
@@ -50,12 +50,14 @@ for i in range(0, len(complete_ads)):
         city=complete_ads[i].get('city'),
         state=complete_ads[i].get('state')))
 
+# Remove dados inconsistentes
+for ad in address_models:
+    if not ad.cep.isnumeric():
+        address_models.remove(ad)
+
 # Salva os endereços completos no banco
 addresses_dao = AddressesDAO()
-addresses_dao.save_addresses(adress_models)
-
-# Remove dados inconsistentes
-addresses_dao.delete_inconsistent_data()
+addresses_dao.save_addresses(address_models)
 
 # Finaliza o programa
 addresses_dao.close()
