@@ -29,9 +29,7 @@ donations_dao.save_donations_points(donations_points)
 
 # Busca os dados do scraping do banco e faz requisições a API do Google Maps
 # para buscar o endereço completo e organizado
-# TODO - ir para o próximo passo direto
-# sem ter que consultar os dados no banco novamente
-scraping_donations_points = [(p[1], p[2]) for p in donations_dao.select_all()]
+scraping_donations_points = [(d.point, d.address) for d in donations_points]
 maps = MapsAPI(API_KEY)
 complete_ads = []
 for s in scraping_donations_points:
