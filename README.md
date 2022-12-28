@@ -1,10 +1,22 @@
-# Executando o projeto
+# Donations Points Scraping
 
-1. Instalar as dependências: na pasta raiz execute `pip install requirements.txt`
-2. Crie um banco de dados chamado `db_donations` em um servidor MySQL
-3. Crie as tabelas necessárias para o projeto: os aquivos `.sql` encontram-se na pasta `src/resources/db`
-4. Entre na pasta src: `cd src/`
-5. Abra o arquivo `run.sh` e preencha as informações do banco de dados e a chave da API do GoogleMaps 
-6. Execute o script: `sh run.py`
-7. O resultado da execução do programa estará na tabela `tb_addresses`
-8. Caso o script apresente algum erro referente a versão do WebDriver, acesse o site [chromedriver](https://chromedriver.chromium.org/home) e faça o download da versão ```Stable``` para o seu sistema operacional
+Sistema que faz o processo de **Web Scraping** de pontos de coleta de agasalhos para doação. Os dados coletados são tratados e enviados para a [API Donations Points](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points) para serem consumidos por quaiquer aplicações front-end.
+
+O objetivo destas duas aplicações em conjunto é fazer um "compilado" de pontos de coleta de agasalhos, independente de instituições. Deixando as informações centralizadas em um único lugar e permitindo a fácil consulta.
+
+Atualmente o processo de Web Scraping coleta dados do site do [Exército da Salvação](https://www.exercitodoacoes.org.br/doacoes/pontos-de-coleta/). Futuramente serão introduzidos dados de outros sites.
+
+______
+## Tecnologias utilizadas
+
+* Python 3.8 para desenvolvimento da aplicação;
+* API do Google Maps para solicitar e salvar os endereços de forma consistente;
+* Banco de dados MySQL para salvar os dados extraídos pelo processo de Web Scraping;
+* Biblioteca Selenium para fazer o processo de Web Scraping no navegador;
+* Biblioteca Beautiful Soup para tratar o HTML;
+* Biblioteca Nox para automação de Lint;
+* GitHub Actions para CI:
+    - Automação de Lint da aplicação;
+    - Atualização automática da imagem docker da aplicação no repositório do [DockerHub Repository - Pedro](https://hub.docker.com/repository/docker/pedro6571/points-of-donations).
+
+______
