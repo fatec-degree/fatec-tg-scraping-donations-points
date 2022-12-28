@@ -86,7 +86,7 @@ Se o MySQL estiver instalado em sua máquina, certifique-se de desativar o servi
 
 ***Erro relacionado a versão do Web Driver***
 
-O processo de Web Scraping necessita do driver do navegador Google Chrome para funcionar, este driver está pasta ```src/resources/```:
+O processo de Web Scraping necessita do driver do navegador Google Chrome para funcionar, este driver está na pasta ```src/resources/```:
 
 <div align="center">
 
