@@ -2,6 +2,9 @@ from ..mysql_database import MySQLDatabase
 
 TABLE = 'tb_scrap_donations_points'
 COLUMNS = '(point, address)'
+COLUMNS_DICT = {'id': 'BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL',
+                'point': 'VARCHAR(255) NOT NULL',
+                'address': 'VARCHAR(255) NOT NULL'}
 
 
 class ScrapDonationsDAO:
@@ -9,6 +12,7 @@ class ScrapDonationsDAO:
 
     def __init__(self):
         self.__database = MySQLDatabase(TABLE)
+        self.__database.create_table(COLUMNS_DICT)
 
     def save_donations_points(self, points: list):
         """
