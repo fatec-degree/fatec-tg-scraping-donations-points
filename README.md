@@ -19,16 +19,29 @@ ______
     - Automação de Lint da aplicação.
 
 ______
+## Pré-requisitos para executar o projeto
+
+* Docker version 20.10.22
+* Docker Compose v2.6.0
+* Python 3.8
+* pip 20.0.2
+
+______
 ## Como executar o projeto
 
-1. Entre na pasta **docker** e execute o seguinte comando para subir o banco de dados onde serão armazenados os dados coletados no processo de Web Scraping:
+1. Instale as dependências da aplicação. Na pasta raiz do projeto execute o seguinte comando:
+```bash
+pip install -r requirements.txt
+```
+
+2. Entre na pasta **docker** e execute o seguinte comando para subir o banco de dados onde serão armazenados os dados coletados no processo de Web Scraping:
 
 ```bash
 cd docker
 docker compose up -d
 ```
 
-2. Entre na pasta **src** e abra o arquivo ```run.sh```:
+3. Entre na pasta **src** e abra o arquivo ```run.sh```:
 
 <div align="center">
 
@@ -36,7 +49,7 @@ docker compose up -d
 
 </div>
 
-3. Adicione a sua chave de API do Google Maps ([veja aqui](https://developers.google.com/maps/documentation/javascript/get-api-key) como solicitar):
+4. Adicione a sua chave de API do Google Maps ([veja aqui](https://developers.google.com/maps/documentation/javascript/get-api-key) como solicitar):
 
 <div align="center">
 
@@ -44,15 +57,15 @@ docker compose up -d
 
 </div>
 
-4. Certifique-se que a aplicação [API Donations Points](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points) está em execução ([veja aqui](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points/blob/master/README.md) como clonar e executar a API).
+5. Certifique-se que a aplicação [API Donations Points](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points) está em execução ([veja aqui](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points/blob/master/README.md) como clonar e executar a API).
 
-5. Entre na ```src``` a partir do terminal:
+6. Entre na ```src``` a partir do terminal:
 
 ```bash
 cd src/
 ```
 
-6. Execute o seguinte comando para iniciar a aplicação:
+7. Execute o seguinte comando para iniciar a aplicação:
 ```bash
 sh run.sh
 ```
@@ -63,7 +76,7 @@ A seguinte saída deve aparecer no console:
 
 A mensagem de warning é esperada, não se preocupe.
 
-7. Para testar os dados finais que foram salvos na API utilize o seguinte comando no terminal:
+8. Para testar os dados finais que foram salvos na API utilize o seguinte comando no terminal:
 
 ```bash
 curl --location --request GET 'localhost:8080/api/donations-points'
