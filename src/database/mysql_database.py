@@ -37,15 +37,18 @@ class MySQLDatabase:
         return values
 
     def __create_columns(self, columns: dict):
-        """ Cria as colunas no padrão necessário para o comando CREATE TABLE """
+        """
+            Cria as colunas no padrão necessário
+            para o comando CREATE TABLE
+        """
         columns_types = [f"{c} {t}" for c, t in columns.items()]
         return ", ".join(columns_types)
-
 
     def create_table(self, columns):
         """ Cria uma tabela se ela não existir no banco """
         if self.__is_connected():
-            sql = f"""CREATE TABLE IF NOT EXISTS {self.__table} ({self.__create_columns(columns)})"""
+            sql = f"""CREATE TABLE IF NOT EXISTS {self.__table} \
+                ({self.__create_columns(columns)})"""
             self.__cursor.execute(sql)
             self.__conn.commit()
 
