@@ -1,8 +1,6 @@
 import requests
 import json
 
-from model.address import Address
-
 
 class DonationsAPI:
 
