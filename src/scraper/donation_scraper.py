@@ -6,23 +6,22 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common import by
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class DonationScraper:
     """ Classe que faz o processo de scraping do site de doações """
 
-    def __init__(self, url, xpath, driver_path):
+    def __init__(self, url, xpath):
         self.__url = url
         self.__xpath = xpath
-        self.__driver_path = driver_path
         self.__driver = self.__create_driver()
 
     def __create_driver(self):
         """ Cria um webdriver a partir do arquivo passado como parametro """
         option = Options()
         option.headless = True
-        return webdriver.Chrome(executable_path=self.__driver_path,
-                                options=option)
+        return webdriver.Chrome(ChromeDriverManager().install())
 
     def __get_html_content(self):
         """ Extrai o HTML da página especificada no parâmetro url """

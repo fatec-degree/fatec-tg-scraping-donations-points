@@ -16,8 +16,7 @@ if os.environ.get('ENVIRONMENT') == 'prd':
 # Scraping dos dados
 scraper = DonationScraper(url=URL_DONATIONS,
                           xpath="//div[@id='searchTextResults']//\
-                          div[@class='pontocoleta_bloco']",
-                          driver_path='resources/chromedriver')
+                          div[@class='pontocoleta_bloco']")
 points = scraper.get_donation_points()
 scraper.quit()
 donations_points = [DonationPoint(point=p.get('point'),
