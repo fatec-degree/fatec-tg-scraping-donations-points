@@ -4,3 +4,4 @@ mysql-connector-python==8.0.31
 googlemaps==4.7.3
 requests
 nox==2022.11.21
+webdriver-manager==3.8.5
