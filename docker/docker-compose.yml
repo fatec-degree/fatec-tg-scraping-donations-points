@@ -16,8 +16,10 @@ services:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
-    volumes: 
-      - mysql-data-scrap:/var/lib/mysql
 
-volumes:
-  mysql-data-scrap:
+  scrap:
+    image: pedro6571/fatec-tg-api-donations-scrap:latest
+    container_name: scraping
+    depends_on:
+      db-scrap:
+        condition: service_healthy
