@@ -18,10 +18,12 @@ class DonationScraper:
         self.__driver = self.__create_driver()
 
     def __create_driver(self):
-        """ Cria um webdriver a partir do arquivo passado como parametro """
-        option = Options()
-        option.headless = True
-        return webdriver.Chrome(ChromeDriverManager().install())
+        """ Cria um webdriver """
+        options = Options()
+        options.headless = True
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-gpu')
+        return webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
     def __get_html_content(self):
         """ Extrai o HTML da página especificada no parâmetro url """
