@@ -23,7 +23,8 @@ class DonationScraper:
         options.headless = True
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-gpu')
-        return webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        return webdriver.Chrome(ChromeDriverManager().install(),
+                                options=options)
 
     def __get_html_content(self):
         """ Extrai o HTML da página especificada no parâmetro url """
