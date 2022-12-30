@@ -23,3 +23,11 @@ services:
     depends_on:
       db-scrap:
         condition: service_healthy
+    environment:
+      - DB_HOST=mysql-scrap
+      - DB_USER=app
+      - DB_PASSWORD=app
+      - DB_NAME=db_donations
+      - MAPS_API_KEY=
+      - ENVIRONMENT=local
+      - ADDRESS_API_URL=http://app:8080/api

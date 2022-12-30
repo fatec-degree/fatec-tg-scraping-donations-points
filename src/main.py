@@ -9,9 +9,7 @@ from integrations.donations_api import DonationsAPI
 
 API_KEY = os.environ.get('MAPS_API_KEY')
 URL_DONATIONS = 'https://www.exercitodoacoes.org.br/doacoes/pontos-de-coleta/'
-DONATIONS_URL_API = os.environ.get('ADDRESS_API_URL_LOCAL')
-if os.environ.get('ENVIRONMENT') == 'prd':
-    DONATIONS_URL_API = os.environ.get('ADDRESS_API_URL_PRD')
+DONATIONS_URL_API = os.environ.get('ADDRESS_API_URL')
 
 # Scraping dos dados
 scraper = DonationScraper(url=URL_DONATIONS,

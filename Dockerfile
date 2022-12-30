@@ -1,5 +1,13 @@
 FROM python:3.8-slim
 
+ENV DB_HOST=$DB_HOST \
+    DB_USER=$DB_USER \
+    DB_PASSWORD=$DB_PASSWORD \
+    DB_NAME=$DB_NAME \
+    MAPS_API_KEY=$MAPS_API_KEY \
+    ENVIRONMENT=$ENVIRONMENT \
+    ADDRESS_API_URL=$ADDRESS_API_URL
+
 WORKDIR /app
 
 RUN apt update && apt upgrade && \
