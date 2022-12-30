@@ -29,4 +29,4 @@ RUN apt update && apt upgrade && \
 
 COPY . .
 RUN pip install --upgrade pip && pip install -r requirements.txt
-CMD google-chrome-stable --no-sandbox --headless && cd src && sh run.sh
+CMD google-chrome-stable --no-sandbox --headless && python3 src/main.py
