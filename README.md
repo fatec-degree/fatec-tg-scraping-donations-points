@@ -15,68 +15,39 @@ ______
 * Biblioteca Selenium para fazer o processo de Web Scraping no navegador;
 * Biblioteca Beautiful Soup para tratar o HTML;
 * Biblioteca Nox para automação de Lint;
+* Docker para conteinerizar a aplicação e o banco de dados facilitando o desenvolvimento local;
+* Docker Compose para subir os múltiplos conteiners da aplicação (conteiner da aplicação, da API e do banco);
 * GitHub Actions para CI:
     - Automação de Lint da aplicação.
+    - Atualização automática da imagem docker da aplicação no repositório do [DockerHub Repository - Pedro](https://hub.docker.com/repository/docker/pedro6571/fatec-tg-api-donations-scrap);
 
 ______
 ## Pré-requisitos para executar o projeto
 
 * Docker version 20.10.22
 * Docker Compose v2.6.0
-* Python 3.8
-* pip 20.0.2
 
 ______
 ## Como executar o projeto
 
-1. Instale as dependências da aplicação. Na pasta raiz do projeto execute o seguinte comando:
-```bash
-pip install -r requirements.txt
-```
+1. Entre na pasta **docker** e abra o arquivo ```docker-compose.yml```. Adicione a sua chave de API do Google Maps no local em destaque ([veja aqui](https://developers.google.com/maps/documentation/javascript/get-api-key) como solicitar):
 
-2. Entre na pasta **docker** e execute o seguinte comando para subir o banco de dados onde serão armazenados os dados coletados no processo de Web Scraping:
+<div align="center">
+
+![Maps API Key](img/compose.png)
+
+</div>
+
+2. A partir do terminal entre na pasta **docker** e execute o seguinte comando para subir a aplicação:
 
 ```bash
 cd docker
 docker compose up -d
 ```
 
-3. Entre na pasta **src** e abra o arquivo ```run.sh```:
+Este comando executa primeiro o banco de dados MySQL, depois a API Spring e por último o container que faz o processo de Web Scraping.
 
-<div align="center">
-
-![Arquivo rn.sh](img/run-sh.png)
-
-</div>
-
-4. Adicione a sua chave de API do Google Maps ([veja aqui](https://developers.google.com/maps/documentation/javascript/get-api-key) como solicitar):
-
-<div align="center">
-
-![Arquivo rn.sh](img/maps-key.png)
-
-</div>
-
-5. Certifique-se que a aplicação [API Donations Points](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points) está em execução ([veja aqui](https://github.com/PedroHPAlmeida/fatec-tg-api-donations-points/blob/master/README.md) como clonar e executar a API).
-
-6. Entre na ```src``` a partir do terminal:
-
-```bash
-cd src/
-```
-
-7. Execute o seguinte comando para iniciar a aplicação:
-```bash
-sh run.sh
-```
-
-A seguinte saída deve aparecer no console:
-
-![Arquivo run.sh](img/success.png)
-
-A mensagem de warning é esperada, não se preocupe.
-
-8. Para testar os dados finais que foram salvos na API utilize o seguinte comando no terminal:
+3. Para testar os dados finais que foram salvos na API utilize o seguinte comando no terminal:
 
 ```bash
 curl --location --request GET 'localhost:8080/api/donations-points'
@@ -96,18 +67,4 @@ ______
 ***Conflito de portas do MySQL***
 
 Se o MySQL estiver instalado em sua máquina, certifique-se de desativar o serviço. O docker-compose da aplicação sobe um container que executa o MySQL na porta 3306, caso já exista um serviço executando na mesma porta ocorrerá um erro.
-
-***Erro relacionado a versão do Web Driver***
-
-O processo de Web Scraping necessita do driver do navegador Google Chrome para funcionar, este driver está na pasta ```src/resources/```:
-
-<div align="center">
-
-![Arquivo rn.sh](img/driver.png)
-
-</div>
-
-Caso a versão do driver seja incompatível com o navegador instalado na máquina ocorrerá um erro.
-
-Para resolver esse problema acesse o site [Chrome Driver](https://chromedriver.chromium.org/downloads) e baixe o driver compatível com a versão do seu navegador e sistema operacional. Por fim, substitua o arquivo na pasta ```src/resources/```.
 ______
