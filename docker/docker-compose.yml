@@ -1,9 +1,9 @@
 version: '3.1'
 
 services:
-  db-scrap:
+  db:
     image: mysql:8.0.31
-    container_name: mysql-scrap
+    container_name: mysql
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -17,17 +17,29 @@ services:
       timeout: 20s
       retries: 10
 
+  api:
+    image: pedro6571/fatec-tg-api-donations-points:latest
+    container_name: api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - PORT=8080
+      - PROFILE=dev
+    restart: always
+    ports:
+      - 8080:8080
+
   scrap:
     image: pedro6571/fatec-tg-api-donations-scrap:latest
     container_name: scraping
-    depends_on:
-      db-scrap:
-        condition: service_healthy
+    depends_on: 
+      - api
     environment:
-      - DB_HOST=mysql-scrap
+      - DB_HOST=mysql
       - DB_USER=app
       - DB_PASSWORD=app
       - DB_NAME=db_donations
       - MAPS_API_KEY=
       - ENVIRONMENT=local
-      - ADDRESS_API_URL=http://app:8080/api
+      - ADDRESS_API_URL=http://api:8080/api
