@@ -1,0 +1,31 @@
+name: Docker Build and Push
+
+on: workflow_call
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3    
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v2.2.1
+  
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: app
+        path: ./target
+  
+    - name: Docker Login
+      uses: docker/login-action@v2.1.0
+      with:
+        username: pedro6571
+        password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v3.2.0
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: pedro6571/fatec-tg-api-donations-scrap:latest

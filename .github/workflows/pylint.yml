@@ -22,3 +22,8 @@ jobs:
         pip install -r requirements.txt
     - name: Make lint
       run: cd src && make lint
+
+  docker:
+    needs: lint
+    uses: ./.github/workflows/docker.yml
+    secrets: inherit
