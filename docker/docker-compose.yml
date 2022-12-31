@@ -40,6 +40,6 @@ services:
       - DB_USER=app
       - DB_PASSWORD=app
       - DB_NAME=db_donations
-      - MAPS_API_KEY=
+      - MAPS_API_KEY=coloque aqui sua chave de API do Google Maps
       - ENVIRONMENT=local
       - ADDRESS_API_URL=http://api:8080/api
