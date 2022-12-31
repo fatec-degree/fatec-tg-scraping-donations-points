@@ -19,7 +19,7 @@ ______
 * Docker Compose para subir os múltiplos conteiners da aplicação (conteiner da aplicação, da API e do banco);
 * GitHub Actions para CI:
     - Automação de Lint da aplicação.
-    - Atualização automática da imagem docker da aplicação no repositório do [DockerHub Repository - Pedro](https://hub.docker.com/repository/docker/pedro6571/fatec-tg-api-donations-scrap);
+    - Atualização automática da imagem docker da aplicação no repositório do [DockerHub Repository - Pedro](https://hub.docker.com/repository/docker/pedro6571/fatec-tg-api-donations-scrap).
 
 ______
 ## Pré-requisitos para executar o projeto
