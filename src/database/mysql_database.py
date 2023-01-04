@@ -8,7 +8,6 @@ DATABASE = os.environ.get('DB_NAME', 'db_donations')
 
 
 class MySQLDatabase:
-    """ Classe que faz a conexão com o banco e realiza operações CRUD """
 
     def __init__(self, table):
         self.__table = table
@@ -67,11 +66,12 @@ class MySQLDatabase:
         return self.__cursor.fetchall()
 
     def delete(self, where):
-        """ Deleta dados que atendam a condição """
-        sql = "DELETE FROM " + self.__table
-        sql += " WHERE " + where
-        self.__cursor.execute(sql)
-        self.__conn.commit()
+        """ Deleta dados que atendam a condição recebida no parâmetro where"""
+        if self.__is_connected():
+            sql = "DELETE FROM " + self.__table
+            sql += " WHERE " + where
+            self.__cursor.execute(sql)
+            self.__conn.commit()
 
     def close(self):
         """ Encerra a conexão com o banco """
