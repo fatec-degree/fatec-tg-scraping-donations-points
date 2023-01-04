@@ -8,7 +8,6 @@ COLUMNS_DICT = {'id': 'BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL',
 
 
 class ScrapDonationsDAO:
-    """ Classe reponsável pelos métodos CRUD dos pontos de doação """
 
     def __init__(self):
         self.__database = MySQLDatabase(TABLE)
