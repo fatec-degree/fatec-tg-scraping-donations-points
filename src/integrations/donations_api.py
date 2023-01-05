@@ -4,7 +4,7 @@ import json
 
 class DonationsAPI:
 
-    def __init__(self, base_url) -> None:
+    def __init__(self, base_url):
         self.__base_url = base_url
         self.__headers = {'Content-Type': 'application/json'}
 
