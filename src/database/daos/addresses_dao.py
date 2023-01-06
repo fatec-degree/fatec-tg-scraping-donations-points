@@ -24,7 +24,7 @@ class AddressesDAO:
         self.__database.save_all(COLUMNS, values)
 
     def delete_inconsistent_data(self):
-        """ 
+        """
             Deleta do banco todos os registros que
             não seguem um determinado padrão
         """
