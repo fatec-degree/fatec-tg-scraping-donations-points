@@ -1,5 +1,3 @@
-""" Web Scraping de um site de pontos de doação de agasalhos """
-
 import json
 import time
 from bs4 import BeautifulSoup
@@ -10,7 +8,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 
 class DonationScraper:
-    """ Classe que faz o processo de scraping do site de doações """
 
     def __init__(self, url, xpath):
         self.__url = url
@@ -30,8 +27,8 @@ class DonationScraper:
         """ Extrai o HTML da página especificada no parâmetro url """
         self.__driver.get(self.__url)
         time.sleep(5)
-        xpath = self.__xpath
-        elements = self.__driver.find_elements(by=by.By.XPATH, value=xpath)
+        elements = self.__driver.find_elements(by=by.By.XPATH,
+                                               value=self.__xpath)
         html = [e.get_attribute('outerHTML') for e in elements]
         return html
 
