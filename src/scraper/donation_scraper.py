@@ -29,8 +29,7 @@ class DonationScraper:
         time.sleep(5)
         elements = self.__driver.find_elements(by=by.By.XPATH,
                                                value=self.__xpath)
-        html = [e.get_attribute('outerHTML') for e in elements]
-        return html
+        return [e.get_attribute('outerHTML') for e in elements]
 
     def __remove_title(self, value):
         """ Remove o título dos dados """
