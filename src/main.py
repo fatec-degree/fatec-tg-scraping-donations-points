@@ -1,10 +1,10 @@
 """ Módulo principal do sistema """
 import os
+from scraper.donation_scraper import DonationScraper
 from database.daos.scrap_donations_dao import ScrapDonationsDAO
 from model.donation_point import DonationPoint
-from scraper.donation_scraper import DonationScraper
-from integrations.maps_api import MapsAPI
 from model.address import Address
+from integrations.maps_api import MapsAPI
 from integrations.donations_api import DonationsAPI
 
 API_KEY = os.environ.get('MAPS_API_KEY')
