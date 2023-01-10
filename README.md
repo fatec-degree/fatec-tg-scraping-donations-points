@@ -53,7 +53,7 @@ Este comando executa primeiro o banco de dados MySQL, depois a API Spring e por 
 curl --location --request GET 'localhost:8080/api/donations-points'
 ```
 
-Para uma melhor visualização dos dados faça a requisição pelo Postman, ou instale a extenção [Json Viewer](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh) em seu navegador e cole a url na barra de de pesquisa:
+Para uma melhor visualização dos dados faça a requisição pelo Postman, ou instale a extenção [Json Viewer](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh) em seu navegador e cole a url na barra de pesquisa:
 
 <div align="center">
 
