@@ -24,7 +24,7 @@ donations_points = [DonationPoint(point=p.get('point'),
 donations_dao = ScrapDonationsDAO()
 donations_dao.save_donations_points(donations_points)
 
-# Itera os dados extraídos no processo de scraping e faz requisições a 
+# Itera os dados extraídos no processo de scraping e faz requisições a
 # API do Google Maps para buscar o endereço completo e organizado
 maps = MapsAPI(API_KEY)
 complete_ads = []
