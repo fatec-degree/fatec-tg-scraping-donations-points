@@ -24,22 +24,21 @@ donations_points = [DonationPoint(point=p.get('point'),
 donations_dao = ScrapDonationsDAO()
 donations_dao.save_donations_points(donations_points)
 
-# Busca os dados do scraping do banco e faz requisições a API do Google Maps
-# para buscar o endereço completo e organizado
-scraping_donations_points = [(d.point, d.address) for d in donations_points]
+# Itera os dados extraídos no processo de scraping e faz requisições a 
+# API do Google Maps para buscar o endereço completo e organizado
 maps = MapsAPI(API_KEY)
 complete_ads = []
-for s in scraping_donations_points:
+for d in donations_points:
     try:
-        complete_ads.append(maps.get_complete_address(s[1]))
+        complete_ads.append(maps.get_complete_address(d.address))
     except Exception:
         continue
 
-# Criar uma lista de objetos Address a partir dos endereços completos
+# Cria uma lista de objetos Address a partir dos endereços completos
 address_models = []
 for i in range(0, len(complete_ads)):
     address_models.append(Address(
-        name=scraping_donations_points[i][0],
+        name=donations_points[i].point,
         cep=complete_ads[i].get('cep'),
         district=complete_ads[i].get('district'),
         street=complete_ads[i].get('street'),
