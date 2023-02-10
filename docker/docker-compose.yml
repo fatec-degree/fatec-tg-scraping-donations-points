@@ -29,12 +29,18 @@ services:
     restart: always
     ports:
       - 8080:8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      retries: 5
+      timeout: 10s
 
   scrap:
     image: pedro6571/fatec-tg-api-donations-scrap:latest
     container_name: scraping
-    depends_on: 
-      - api
+    depends_on:
+      api:
+        condition: service_healthy
     environment:
       - DB_HOST=mysql
       - DB_USER=app
